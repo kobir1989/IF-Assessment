@@ -1,7 +1,13 @@
-import React from 'react';
+import GameContainer from '@/components/tic-tac-toe/GameContainer';
 
 const GamePage = () => {
-  return <div> Game Page</div>;
+  return (
+    <main className='mt-10 mx-auto max-w-4xl text-center'>
+      <div className='w-full'>
+        <GameContainer />
+      </div>
+    </main>
+  );
 };
 
 export default GamePage;
