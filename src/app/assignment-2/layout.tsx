@@ -1,4 +1,4 @@
-import Navbar from '@/components/ui/Navbar';
+import Navbar from '@/components/ui/Navbar/Navbar';
 import React from 'react';
 
 interface Assignment2LayoutProps {

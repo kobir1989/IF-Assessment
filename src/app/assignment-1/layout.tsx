@@ -1,4 +1,4 @@
-import Navbar from '@/components/ui/Navbar';
+import Navbar from '@/components/ui/Navbar/Navbar';
 import React from 'react';
 
 interface Assignment1LayoutProps {
@@ -7,11 +7,9 @@ interface Assignment1LayoutProps {
 
 const Assignment1Layout = ({ children }: Assignment1LayoutProps) => {
   return (
-    <div className='main-h'>
+    <div className='bg-gradient-to-br from-blue-50 to-purple-50 h-screen'>
       <Navbar />
-      <main>
-        <div className='container mx-auto'>{children}</div>
-      </main>
+      <main className='container mx-auto w-full px-4 md:w-[1050px]'>{children}</main>
     </div>
   );
 };
