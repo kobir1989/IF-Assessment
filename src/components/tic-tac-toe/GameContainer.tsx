@@ -1,6 +1,6 @@
 'use client';
 
-import { useAppSelector, useAppDispatch } from '@/redux/hooks';
+import { useAppDispatch, useGameStore } from '@/redux/hooks';
 import {
   setBoard,
   setCurrentPlayer,
@@ -16,6 +16,9 @@ import SeriesWinnerModal from '@/components/tic-tac-toe/SeriesWinnerModal';
 import GameStatus from '@/components/tic-tac-toe/GameStatus';
 import Game3x3Grid from '@/components/tic-tac-toe/Game3x3Grid';
 import { PLAYER_X, PLAYER_O, WINNING_LINES, TIE } from '@/constants';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { isPlayerExists } from '@/utils';
 
 const GameContainer = () => {
   const {
@@ -29,8 +32,15 @@ const GameContainer = () => {
     gameSeriesWinner,
     isGameSeriesOver,
     roundWinner,
-  } = useAppSelector((state) => state.ticTacToe);
+  } = useGameStore();
   const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isPlayerExists(players)) {
+      router.push('/assignment-1');
+    }
+  }, [players.player1, players.player2, router]);
 
   // Check each winning line after each move
   const checkWinner = (board: (string | null)[]): string | null => {

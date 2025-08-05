@@ -25,11 +25,13 @@ interface GameState {
     player2: PlayerScore;
   };
   leaderboard: Array<{
-    player1: string;
-    player2: string;
-    winner: string;
-    score: string;
-    date: string;
+    playerName: string;
+    score: number;
+    totalPoints: number;
+    wins: number;
+    losses: number;
+    ties: number;
+    rank: number;
   }>;
 }
 
@@ -140,14 +142,44 @@ const ticTacToeSlice = createSlice({
 
       // Add to leaderboard if game series is done
       if (state.isGameSeriesOver) {
-        const leaderboardEntry = {
-          player1: state.players.player1,
-          player2: state.players.player2,
-          winner: state.gameSeriesWinner || TIE,
-          score: `${player1RoundWins}-${player2RoundWins}`,
-          date: new Date().toLocaleDateString(),
+        // Update leaderboard for both players
+        const updatePlayerInLeaderboard = (playerName: string, playerStats: PlayerScore) => {
+          const existingPlayerIndex = state.leaderboard.findIndex(
+            (entry) => entry.playerName === playerName
+          );
+
+          if (existingPlayerIndex !== -1) {
+            // Update existing player
+            const existingPlayer = state.leaderboard[existingPlayerIndex];
+            existingPlayer.totalPoints += playerStats.totalPoints;
+            existingPlayer.wins += playerStats.wins;
+            existingPlayer.losses += playerStats.losses;
+            existingPlayer.ties += playerStats.ties;
+            existingPlayer.score = existingPlayer.totalPoints;
+          } else {
+            // Add new player
+            const newPlayer = {
+              playerName,
+              score: playerStats.totalPoints,
+              totalPoints: playerStats.totalPoints,
+              wins: playerStats.wins,
+              losses: playerStats.losses,
+              ties: playerStats.ties,
+              rank: 0,
+            };
+            state.leaderboard.push(newPlayer);
+          }
         };
-        state.leaderboard.unshift(leaderboardEntry); // Add to beginning
+
+        // Update both players in leadeboard
+        updatePlayerInLeaderboard(state.players.player1, state.scores.player1);
+        updatePlayerInLeaderboard(state.players.player2, state.scores.player2);
+
+        // Sort leaderboard by total points (dsc) and update ranks
+        state.leaderboard.sort((a, b) => b.totalPoints - a.totalPoints);
+        state.leaderboard.forEach((entry, index) => {
+          entry.rank = index + 1;
+        });
       }
     },
     // start next round

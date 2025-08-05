@@ -7,7 +7,7 @@ interface Assignment1LayoutProps {
 
 const Assignment1Layout = ({ children }: Assignment1LayoutProps) => {
   return (
-    <div className='bg-gradient-to-br from-blue-50 to-purple-50 h-screen'>
+    <div className='bg-gradient-to-br from-blue-50 to-purple-50 h-screen overflow-y-auto'>
       <Navbar />
       <main className='container mx-auto w-full px-4 md:w-[1050px]'>{children}</main>
     </div>

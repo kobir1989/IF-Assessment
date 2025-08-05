@@ -1,5 +1,5 @@
 import { TIE } from '@/constants';
-import { getCurrentPlayerName, getPlayerColorClass } from '@/utils/gameUtils';
+import { getCurrentPlayerName, getPlayerColorClass } from '@/utils';
 import { Player } from '@/types';
 import React from 'react';
 
