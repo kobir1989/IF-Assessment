@@ -3,12 +3,26 @@
 import React from 'react';
 import { Trophy, UserRound } from 'lucide-react';
 import { getRandomColor, isRank1 } from '@/utils';
-import { useGameStore } from '@/redux/hooks';
+import { useAppDispatch, useGameStore } from '@/redux/hooks';
 import PlayerCard from './PlayerCard';
 import EmptyLeaderBoard from './EmptyLeaderboard';
+import { Button } from '@/components/ui/Button';
+import { resetLeaderboard } from '@/redux/ticTacToeSlice';
+import { useRouter } from 'next/navigation';
 
 const LeaderBoard = () => {
   const { leaderboard } = useGameStore();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const handleClearLeaderboard = () => {
+    dispatch(resetLeaderboard());
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('persist:root');
+    }
+    router.push('/assignment-1');
+  };
+
   return (
     <>
       {leaderboard?.length > 0 ? (
@@ -81,6 +95,13 @@ const LeaderBoard = () => {
         </div>
       ) : (
         <EmptyLeaderBoard />
+      )}
+      {leaderboard?.length > 0 && (
+        <div className='flex items-center justify-center mt-10'>
+          <Button variant='outline' size='sm' onClick={handleClearLeaderboard}>
+            Clear Leaderboard
+          </Button>
+        </div>
       )}
     </>
   );

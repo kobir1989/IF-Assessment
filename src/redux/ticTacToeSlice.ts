@@ -211,6 +211,9 @@ const ticTacToeSlice = createSlice({
       state.scores.player1 = { ...initialPlayerScore };
       state.scores.player2 = { ...initialPlayerScore };
     },
+    resetLeaderboard: (state) => {
+      state.leaderboard = [];
+    },
   },
 });
 
@@ -223,6 +226,7 @@ export const {
   startNextRound,
   resetGame,
   resetGameSeries,
+  resetLeaderboard,
 } = ticTacToeSlice.actions;
 
 export default ticTacToeSlice.reducer;
