@@ -7,12 +7,12 @@ interface Assignment2LayoutProps {
 
 const Assignment2Layout = ({ children }: Assignment2LayoutProps) => {
   return (
-    <div className='min-h-screen'>
+    <div className='min-h-screen bg-gray-100'>
       <header>
         <Navbar />
       </header>
       <main>
-        <div className='container mx-auto px-4 py-6'>{children}</div>
+        <div className='container mx-auto max-w-7xl px-4 py-6 '>{children}</div>
       </main>
     </div>
   );

@@ -20,7 +20,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
 
     return (
-      <div className='flex flex-col gap-2'>
+      <div className='w-full flex flex-col gap-2'>
         {label && <label htmlFor={props?.id}>{label}</label>}
         <input type='text' className={className} {...props} ref={ref} />
       </div>
