@@ -10,6 +10,7 @@ interface GameControlsProps {
   scores: { player1: { roundWins: number }; player2: { roundWins: number } };
   handleNextRound: () => void;
   handleResetGame: () => void;
+  handleResetSeries: () => void;
 }
 
 const GameControlButtons: React.FC<GameControlsProps> = ({
@@ -20,6 +21,7 @@ const GameControlButtons: React.FC<GameControlsProps> = ({
   scores,
   handleNextRound,
   handleResetGame,
+  handleResetSeries,
 }) => {
   return (
     <div className='flex gap-2'>
@@ -39,6 +41,10 @@ const GameControlButtons: React.FC<GameControlsProps> = ({
               Reset Round
             </Button>
           )}
+          <Button variant='destructive' onClick={handleResetSeries} disabled={isGameSeriesOver}>
+            <RotateCcw className='w-4 h-4' />
+            Reset Series
+          </Button>
         </React.Fragment>
       )}
     </div>

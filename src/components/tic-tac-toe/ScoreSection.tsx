@@ -26,7 +26,7 @@ const ScoreSection: React.FC<ScoreSectionProps> = ({
               Best of {maxRounds} Rounds
             </h2>
             <p className='text-sm text-gray-600'>
-              First to {Math.ceil(maxRounds / 2)} round wins is the champion
+              To win a series, you need to win {Math.ceil(maxRounds / 2)} rounds
             </p>
           </div>
           <div className='text-center'>

@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Play } from 'lucide-react';
 import { useAppDispatch } from '@/redux/hooks';
-import { setPlayers } from '@/redux/ticTacToeSlice';
+import { setPlayers } from '@/redux/features/ticTacToeSlice';
 import { validateForm } from '@/utils';
 import { useRouter } from 'next/navigation';
 

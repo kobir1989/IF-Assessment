@@ -9,7 +9,7 @@ import {
   startNextRound,
   resetGame,
   resetGameSeries,
-} from '@/redux/ticTacToeSlice';
+} from '@/redux/features/ticTacToeSlice';
 import ScoreSection from '@/components/tic-tac-toe/ScoreSection';
 import GameControlButtons from '@/components/tic-tac-toe/GameControlButtons';
 import SeriesWinnerModal from '@/components/tic-tac-toe/SeriesWinnerModal';
@@ -19,6 +19,8 @@ import { PLAYER_X, PLAYER_O, WINNING_LINES, TIE } from '@/constants';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { isPlayerExists } from '@/utils';
+import { useConfetti } from '@/hooks';
+import Confetti from 'react-confetti';
 
 const GameContainer = () => {
   const {
@@ -36,11 +38,33 @@ const GameContainer = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  const {
+    showConfetti,
+    confettiPieces,
+    triggerRoundWinConfetti,
+    triggerSeriesWinConfetti,
+    stopConfetti,
+  } = useConfetti();
+
   useEffect(() => {
     if (!isPlayerExists(players)) {
       router.push('/assignment-1');
     }
   }, [players.player1, players.player2, router]);
+
+  // Trigger confetti on round win
+  useEffect(() => {
+    if (winner && winner !== TIE) {
+      triggerRoundWinConfetti();
+    }
+  }, [winner, triggerRoundWinConfetti]);
+
+  // Trigger extra confetti on series win
+  useEffect(() => {
+    if (isGameSeriesOver && gameSeriesWinner && gameSeriesWinner !== TIE) {
+      triggerSeriesWinConfetti();
+    }
+  }, [isGameSeriesOver, gameSeriesWinner, triggerSeriesWinConfetti]);
 
   // Check each winning line after each move
   const checkWinner = (board: (string | null)[]): string | null => {
@@ -89,10 +113,17 @@ const GameContainer = () => {
 
   const handleResetGame = () => {
     dispatch(resetGame());
+    stopConfetti();
   };
 
   const handleNewGameSeries = () => {
     dispatch(resetGameSeries());
+    stopConfetti();
+  };
+
+  const handleResetSeries = () => {
+    dispatch(resetGameSeries());
+    stopConfetti();
   };
 
   const getRoundWinnerName = () => {
@@ -104,6 +135,17 @@ const GameContainer = () => {
 
   return (
     <div className='w-full'>
+      {/* Confetti Effect */}
+      {showConfetti && (
+        <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          numberOfPieces={confettiPieces}
+          recycle={false}
+          gravity={0.1}
+        />
+      )}
+
       {/* Game Score Section */}
       <ScoreSection
         players={players}
@@ -137,6 +179,7 @@ const GameContainer = () => {
             scores={scores}
             handleNextRound={handleNextRound}
             handleResetGame={handleResetGame}
+            handleResetSeries={handleResetSeries}
           />
         </div>
       </div>
@@ -146,7 +189,7 @@ const GameContainer = () => {
           gameSeriesWinner={gameSeriesWinner}
           scores={scores}
           handleNewGameSeries={handleNewGameSeries}
-          onClose={() => {}}
+          onClose={handleNewGameSeries}
         />
       )}
     </div>

@@ -7,7 +7,7 @@ import { useAppDispatch, useGameStore } from '@/redux/hooks';
 import PlayerCard from './PlayerCard';
 import EmptyLeaderBoard from './EmptyLeaderboard';
 import { Button } from '@/components/ui/Button';
-import { resetLeaderboard } from '@/redux/ticTacToeSlice';
+import { resetLeaderboard } from '@/redux/features/ticTacToeSlice';
 import { useRouter } from 'next/navigation';
 
 const LeaderBoard = () => {
