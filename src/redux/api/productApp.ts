@@ -1,10 +1,9 @@
 import {
   Product,
   GetProductsRequest,
-  ProductByIdParams,
+  ProductIdParams,
   CreateProductRequest,
   UpdateProductRequest,
-  DeleteProductRequest,
 } from '@/types';
 import { apiSlice } from './apiSlice';
 
@@ -18,7 +17,7 @@ export const productApi = apiSlice.injectEndpoints({
       keepUnusedDataFor: 0,
       providesTags: ['Product'],
     }),
-    getProductById: builder.query<Product, ProductByIdParams>({
+    getProductById: builder.query<Product, ProductIdParams>({
       query: ({ params, productId }) => ({
         url: `/products/${productId}`,
         params,
@@ -41,7 +40,7 @@ export const productApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Product'],
     }),
-    removeProduct: builder.mutation<{ message: string }, DeleteProductRequest>({
+    removeProduct: builder.mutation<{ message: string }, ProductIdParams>({
       query: ({ productId }) => ({
         url: `/products/${productId}`,
         method: 'DELETE',

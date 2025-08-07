@@ -3,6 +3,17 @@ export interface Player {
   player2: string;
 }
 
+// Base interface for common fields
+export interface BaseEntity {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+export interface Category extends BaseEntity {
+  image: string;
+}
+
 export interface Product {
   id: number;
   title: string;
@@ -10,21 +21,9 @@ export interface Product {
   price: number;
   description: string;
   images: string[];
-  category: {
-    id: number;
-    name: string;
-    image?: string;
-    slug: string;
-  };
+  category: Category;
   creationAt?: string;
   updatedAt?: string;
-}
-
-export interface Category {
-  id: number;
-  name: string;
-  slug: string;
-  image: string;
 }
 
 export interface ProductsRequestBody {
@@ -45,35 +44,28 @@ export interface ProductsQueryParams {
   title?: string;
 }
 
-export interface ProductByIdParams {
-  productId: string | number;
-  params?: Record<string, unknown>;
+// Generic API request interfaces
+export interface ApiRequest<T = Record<string, unknown>> {
+  params?: T;
 }
 
-// API Request Bodies
-export interface CreateProductRequest {
-  body: ProductsRequestBody;
-  params?: Record<string, unknown>;
+export interface ApiRequestWithBody<TBody, TParams = Record<string, unknown>>
+  extends ApiRequest<TParams> {
+  body: TBody;
 }
 
-export interface UpdateProductRequest {
-  body: Partial<ProductsRequestBody>;
+export interface ApiRequestWithId<TParams = Record<string, unknown>> extends ApiRequest<TParams> {
   productId: string | number;
 }
 
-export interface DeleteProductRequest {
-  productId: string | number;
-}
+// API request types
+export type GetProductsRequest = ApiRequest<ProductsQueryParams>;
+export type CreateProductRequest = ApiRequestWithBody<ProductsRequestBody>;
+export type UpdateProductRequest = ApiRequestWithId & { body: Partial<ProductsRequestBody> };
+export type ProductIdParams = ApiRequestWithId;
 
 // API Response Types
-export interface ProductsResponse {
+export interface ProductsResponse extends Partial<ProductsQueryParams> {
   products?: Product[];
   total?: number;
-  limit?: number;
-  offset?: number;
-  title?: string;
-}
-
-export interface GetProductsRequest {
-  params?: ProductsQueryParams;
 }
