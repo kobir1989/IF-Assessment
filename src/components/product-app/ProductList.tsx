@@ -15,7 +15,7 @@ import Popover from '@/components/ui/Popover';
 interface ProductListProps {
   productList?: Product[];
   isLoading?: boolean;
-  error?: any;
+  error?: unknown;
 }
 
 const ProductList: React.FC<ProductListProps> = ({
@@ -47,10 +47,24 @@ const ProductList: React.FC<ProductListProps> = ({
       await removeProduct({ productId }).unwrap();
       setSelectedProductToDelete(null);
       setDeleteErrorMessage('');
-    } catch (error: any) {
+    } catch (error: unknown) {
       setSelectedProductToDelete(null);
-      const errorMessage =
-        error?.data?.message || error?.message || 'Failed to delete product. Please try again.';
+      const errorMessage = (() => {
+        if (error && typeof error === 'object') {
+          if (
+            'data' in error &&
+            typeof error.data === 'object' &&
+            error.data &&
+            'message' in error.data
+          ) {
+            return String(error.data.message) || 'Failed to delete product. Please try again.';
+          }
+          if ('message' in error) {
+            return String(error.message) || 'Failed to delete product. Please try again.';
+          }
+        }
+        return 'Failed to delete product. Please try again.';
+      })();
       setDeleteErrorMessage(errorMessage);
     }
   };
@@ -71,7 +85,10 @@ const ProductList: React.FC<ProductListProps> = ({
     return (
       <div className='flex justify-center items-center min-h-[400px]'>
         <ErrorMessage
-          message={productError?.data?.message || 'Something went wrong!'}
+          message={
+            (productError as { data?: { message?: string } })?.data?.message ||
+            'Something went wrong!'
+          }
           isShowActionButton={true}
         />
       </div>

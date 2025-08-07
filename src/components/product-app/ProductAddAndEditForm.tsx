@@ -167,7 +167,6 @@ const ProductAddAndEditForm = () => {
           handleSuccess('Product updated successfully!');
         })
         .catch((error) => {
-          console.error('Error updating product:', error);
           handleSubmitError(error);
         });
     } else {
@@ -183,7 +182,6 @@ const ProductAddAndEditForm = () => {
           handleSuccess('Product created successfully!');
         })
         .catch((error) => {
-          console.error('Error creating product:', error);
           handleSubmitError(error);
         });
     }

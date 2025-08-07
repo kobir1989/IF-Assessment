@@ -47,13 +47,13 @@ export interface ProductsQueryParams {
 
 export interface ProductByIdParams {
   productId: string | number;
-  params?: Record<string, any>;
+  params?: Record<string, unknown>;
 }
 
 // API Request Bodies
 export interface CreateProductRequest {
   body: ProductsRequestBody;
-  params?: Record<string, any>;
+  params?: Record<string, unknown>;
 }
 
 export interface UpdateProductRequest {

@@ -50,7 +50,7 @@ const GameContainer = () => {
     if (!isPlayerExists(players)) {
       router.push('/assignment-1');
     }
-  }, [players.player1, players.player2, router]);
+  }, [players, router]);
 
   // Trigger confetti on round win
   useEffect(() => {
@@ -68,8 +68,6 @@ const GameContainer = () => {
 
   // Check each winning line after each move
   const checkWinner = (board: (string | null)[]): string | null => {
-    console.log('board', board);
-
     for (const line of WINNING_LINES) {
       const [a, b, c] = line;
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {

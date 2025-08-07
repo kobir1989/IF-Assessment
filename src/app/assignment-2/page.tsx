@@ -21,7 +21,7 @@ const ProductListPage = () => {
   const prepareApiParams = () => {
     const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
-    const apiParams: any = {
+    const apiParams: Record<string, string | number> = {
       offset,
       limit: ITEMS_PER_PAGE,
     };
