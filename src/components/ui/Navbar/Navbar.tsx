@@ -19,6 +19,8 @@ const Navbar: React.FC = () => {
   const isLinkActive = (href: string) => {
     if (href === '/assignment-1') {
       return pathname.startsWith('/assignment-1');
+    } else if (href === '/assignment-2') {
+      return pathname.startsWith('/assignment-2');
     }
     return pathname === href;
   };

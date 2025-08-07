@@ -58,10 +58,10 @@ export const productApi = apiSlice.injectEndpoints({
 });
 
 export const {
-  useCreateProductMutation,
-  useGetProductsQuery,
-  useGetProductByIdQuery,
-  useUpdateProductMutation,
-  useRemoveProductMutation,
-  useGetProductCategoryQuery,
+  useCreateProductMutation, // create product
+  useGetProductsQuery, // get all products
+  useGetProductByIdQuery, // get product by id
+  useUpdateProductMutation, // update product
+  useRemoveProductMutation, // delete product
+  useGetProductCategoryQuery, // get product category
 } = productApi;

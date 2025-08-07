@@ -1,14 +1,4 @@
-import { ProductsRequestBody } from '@/types';
-
-interface PlayerFormData {
-  player1: string;
-  player2: string;
-}
-
-interface FormErrors {
-  player1: string;
-  player2: string;
-}
+import { Player, ProductsRequestBody } from '@/types';
 
 const validatePlayerName = (name: string, fieldName: string): string => {
   if (name.trim() === '') {
@@ -20,11 +10,12 @@ const validatePlayerName = (name: string, fieldName: string): string => {
   return '';
 };
 
-export const validateForm = (
-  formData: PlayerFormData,
-  setErrors: (errors: FormErrors) => void
+// Validate player form data
+export const validatePlayerForm = (
+  formData: Player,
+  setErrors: (errors: Player) => void
 ): boolean => {
-  const newErrors: FormErrors = {
+  const newErrors: Player = {
     player1: '',
     player2: '',
   };
@@ -44,26 +35,41 @@ export const validateForm = (
 };
 
 // Validate product form data
-export const handleValidateFormData = (
-  formData: ProductsRequestBody
-): Partial<ProductsRequestBody> => {
-  const errors: Partial<ProductsRequestBody> = {};
+export const validateProductFormData = (formData: ProductsRequestBody): Record<string, string> => {
+  const errors: Record<string, string> = {};
 
   if (!formData.title) {
     errors.title = 'Title is required';
   }
   if (!formData.price) {
-    errors.price = 0;
+    errors.price = 'Price is required';
   }
   if (!formData.categoryId) {
-    errors.categoryId = 0;
+    errors.categoryId = 'Category is required';
   }
   if (!formData.description) {
     errors.description = 'Description is required';
   }
   if (formData.images.length === 0 || formData.images.every((image) => !image)) {
-    errors.images = [];
+    errors.images = 'Images are required';
   }
 
   return errors;
+};
+
+// Get error message from product API response
+export const getProductApiErrorMessage = (error: unknown): string => {
+  if (error && typeof error === 'object' && 'data' in error) {
+    const errorData = (error as { data?: { message?: string } }).data;
+    if (errorData && typeof errorData.message === 'string') {
+      return errorData.message;
+    }
+  }
+  if (error && typeof error === 'object' && 'message' in error) {
+    const errorMessage = (error as { message?: string }).message;
+    if (typeof errorMessage === 'string') {
+      return errorMessage;
+    }
+  }
+  return 'An unexpected error occurred. Please try again.';
 };

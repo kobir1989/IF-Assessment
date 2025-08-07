@@ -1,12 +1,12 @@
 'use client';
 
 import Input from '@/components/ui/Input';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Play } from 'lucide-react';
 import { useAppDispatch } from '@/redux/hooks';
 import { setPlayers } from '@/redux/features/ticTacToeSlice';
-import { validateForm } from '@/utils';
+import { validatePlayerForm } from '@/utils';
 import { useRouter } from 'next/navigation';
 
 const INITIAL_STATE = {
@@ -19,6 +19,11 @@ const PlayerSetupForm = () => {
   const [errors, setErrors] = useState(INITIAL_STATE);
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -34,7 +39,7 @@ const PlayerSetupForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!validateForm(formData, setErrors)) return;
+    if (!validatePlayerForm(formData, setErrors)) return;
 
     dispatch(setPlayers({ player1: formData.player1, player2: formData.player2 }));
     hadleSuccess();
@@ -51,6 +56,7 @@ const PlayerSetupForm = () => {
             value={formData.player1}
             onChange={handleChange}
             variant={errors.player1 ? 'error' : 'default'}
+            ref={inputRef}
           />
           {errors.player1 && (
             <span className='text-red-500 text-[12px] line-clamp-1 ml-4'>{errors.player1}</span>
@@ -70,7 +76,7 @@ const PlayerSetupForm = () => {
           )}
         </div>
       </div>
-      <Button type='submit' className='w-full' variant='game' size='lg'>
+      <Button type='submit' className='w-full' variant='gradient' size='lg'>
         <Play />
         Start Game
       </Button>

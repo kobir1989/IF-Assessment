@@ -36,7 +36,7 @@ const SeriesWinnerModal: React.FC<SeriesWinnerModalProps> = ({
             Final Score: {scores.player1.roundWins} - {scores.player2.roundWins}
           </p>
           <div className='flex gap-4 justify-center md:flex-row flex-col'>
-            <Button variant='game' onClick={handleNewGameSeries}>
+            <Button variant='gradient' onClick={handleNewGameSeries}>
               <Play className='w-4 h-4' />
               New Game Series
             </Button>

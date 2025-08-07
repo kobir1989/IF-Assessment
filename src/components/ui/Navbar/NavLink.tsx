@@ -5,7 +5,7 @@ interface NavLinkProps {
   href: string;
   label: string;
   isActive: boolean;
-  variant?: 'default' | 'outline' | 'game' | 'ghost';
+  variant?: 'default' | 'outline' | 'gradient' | 'ghost';
   className?: string;
   onClick?: () => void;
   disabled?: boolean;
@@ -20,14 +20,7 @@ const NavLink: React.FC<NavLinkProps> = ({
   onClick,
   disabled,
 }) => (
-  <Button
-    variant={variant}
-    size='sm'
-    asChild
-    className={className}
-    onClick={onClick}
-    disabled={disabled}
-  >
+  <Button variant={variant} size='sm' className={className} onClick={onClick} disabled={disabled}>
     <Link href={href}>{label}</Link>
   </Button>
 );

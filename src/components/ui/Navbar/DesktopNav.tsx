@@ -30,7 +30,7 @@ const DesktopNav: React.FC<DesktopNavProps> = ({ pathname, isLinkActive }) => {
                 href={link.href}
                 label={link.label}
                 isActive={pathname === link.href}
-                variant={pathname === link.href ? 'game' : 'ghost'}
+                variant={pathname === link.href ? 'gradient' : 'ghost'}
                 disabled={link.href === '/assignment-1/game' && !isPlayerExists(players)}
               />
             </li>

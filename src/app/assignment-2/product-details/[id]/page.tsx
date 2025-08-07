@@ -11,9 +11,11 @@ const ProductDetailsPage = () => {
   const router = useRouter();
   const { id } = useParams();
   const { data: product } = useGetProductByIdQuery({ productId: id as string });
+
   const onBack = () => {
     router.back();
   };
+
   return (
     <div className='min-h-screen bg-gray-50'>
       <div className='container mx-auto px-2 sm:px-4 py-6'>

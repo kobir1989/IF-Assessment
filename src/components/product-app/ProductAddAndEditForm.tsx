@@ -14,7 +14,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import Loader from '@/components/ui/Loader';
 import { Plus, Trash } from 'lucide-react';
 import Popover from '@/components/ui/Popover';
-import { handleValidateFormData } from '@/utils/validators';
+import { getProductApiErrorMessage, validateProductFormData } from '@/utils/validators';
 
 const INITIAL_FORM_DATA = {
   title: '',
@@ -24,23 +24,6 @@ const INITIAL_FORM_DATA = {
   images: [],
 };
 
-// Type guard to safely extract error message
-const getErrorMessage = (error: unknown): string => {
-  if (error && typeof error === 'object' && 'data' in error) {
-    const errorData = (error as { data?: { message?: string } }).data;
-    if (errorData && typeof errorData.message === 'string') {
-      return errorData.message;
-    }
-  }
-  if (error && typeof error === 'object' && 'message' in error) {
-    const errorMessage = (error as { message?: string }).message;
-    if (typeof errorMessage === 'string') {
-      return errorMessage;
-    }
-  }
-  return 'An unexpected error occurred. Please try again.';
-};
-
 const ProductAddAndEditForm = () => {
   const searchParams = useSearchParams();
   const productId = searchParams.get('id');
@@ -48,7 +31,7 @@ const ProductAddAndEditForm = () => {
   const router = useRouter();
 
   const [formData, setFormData] = useState<ProductsRequestBody>(INITIAL_FORM_DATA);
-  const [errors, setErrors] = useState<Partial<ProductsRequestBody>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [showSuccessPopover, setShowSuccessPopover] = useState(false);
   const [showErrorPopover, setShowErrorPopover] = useState(false);
   const [popoverMessage, setPopoverMessage] = useState('');
@@ -129,7 +112,7 @@ const ProductAddAndEditForm = () => {
   };
 
   const validateFormData = () => {
-    const errors = handleValidateFormData(formData);
+    const errors = validateProductFormData(formData);
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -141,7 +124,7 @@ const ProductAddAndEditForm = () => {
     router.push('/assignment-2');
   };
   const handleSubmitError = (error: unknown) => {
-    const errorMessage = getErrorMessage(error);
+    const errorMessage = getProductApiErrorMessage(error);
     setPopoverMessage(errorMessage);
     setShowErrorPopover(true);
   };
@@ -342,9 +325,9 @@ const ProductAddAndEditForm = () => {
       <Popover
         message={
           createError
-            ? getErrorMessage(createError)
+            ? getProductApiErrorMessage(createError)
             : updateError
-            ? getErrorMessage(updateError)
+            ? getProductApiErrorMessage(updateError)
             : 'Something went wrong!'
         }
         isVisible={Boolean(createError || updateError)}

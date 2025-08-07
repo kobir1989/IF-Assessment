@@ -10,8 +10,6 @@ interface Product {
   name: string;
   image: string;
   price: number;
-  originalPrice?: number;
-  discount?: number;
   rating: number;
   reviewCount: number;
 }
@@ -47,11 +45,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
           height={200}
           onError={handleImageError}
         />
-        {product.discount && (
-          <div className='absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-semibold'>
-            -{product.discount}%
-          </div>
-        )}
       </div>
 
       <div className='p-4'>
@@ -81,11 +74,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <span className='text-lg font-bold text-gray-800'>
               TK.{product.price.toLocaleString()}
             </span>
-            {product.originalPrice && (
-              <span className='text-sm text-gray-500 line-through ml-2'>
-                TK.{product.originalPrice.toLocaleString()}
-              </span>
-            )}
           </div>
         </div>
 

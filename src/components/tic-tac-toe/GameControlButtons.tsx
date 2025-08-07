@@ -31,12 +31,12 @@ const GameControlButtons: React.FC<GameControlsProps> = ({
           currentRound < maxRounds &&
           scores.player1.roundWins < 3 &&
           scores.player2.roundWins < 3 ? (
-            <Button variant='game' onClick={handleNextRound}>
+            <Button variant='gradient' onClick={handleNextRound}>
               <Play className='w-4 h-4' />
               Next Round
             </Button>
           ) : (
-            <Button variant='game' onClick={handleResetGame} disabled={isGameSeriesOver}>
+            <Button variant='gradient' onClick={handleResetGame} disabled={isGameSeriesOver}>
               <RotateCcw className='w-4 h-4' />
               Reset Round
             </Button>
