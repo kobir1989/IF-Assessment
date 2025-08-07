@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/Button';
-import Modal from '@/components/ui/Modal';
+import { Modal } from '@/components/ui/Modals.tsx';
 import { Play, Trophy } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React from 'react';

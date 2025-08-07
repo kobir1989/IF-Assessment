@@ -37,11 +37,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <div className='bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 group border border-gray-200'>
-      <div className='relative'>
+      <div className='relative h-48 bg-gray-100'>
         <NextImage
           src={imageError || !product?.image ? '/default-dress.png' : product.image}
           alt={product.name}
-          className='w-full h-48 object-cover rounded-t-lg cursor-pointer'
+          className='w-full h-full object-contain rounded-t-lg cursor-pointer'
           onClick={() => onProductClick(product)}
           width={300}
           height={200}

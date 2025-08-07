@@ -137,13 +137,15 @@ const GameContainer = () => {
     <div className='w-full'>
       {/* Confetti Effect */}
       {showConfetti && (
-        <Confetti
-          width={window.innerWidth}
-          height={window.innerHeight}
-          numberOfPieces={confettiPieces}
-          recycle={false}
-          gravity={0.1}
-        />
+        <div className='fixed inset-0 z-100'>
+          <Confetti
+            width={window.innerWidth}
+            height={window.innerHeight}
+            numberOfPieces={confettiPieces}
+            recycle={false}
+            gravity={0.1}
+          />
+        </div>
       )}
 
       {/* Game Score Section */}

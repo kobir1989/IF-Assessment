@@ -8,7 +8,10 @@ interface ModalWrapperProps {
 const ModalWrapper: React.FC<ModalWrapperProps> = ({ children, onClose }) => {
   return (
     <div className='fixed inset-0 z-50 flex items-center justify-center'>
-      <div className='absolute inset-0 bg-[#00000080] bg-opacity-50' onClick={onClose} />
+      <div
+        className='absolute inset-0 bg-[#00000080] backdrop-blur-sm bg-opacity-50'
+        onClick={onClose}
+      />
       {children}
     </div>
   );

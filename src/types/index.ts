@@ -13,9 +13,11 @@ export interface Product {
   category: {
     id: number;
     name: string;
-    image: string;
+    image?: string;
     slug: string;
   };
+  creationAt?: string;
+  updatedAt?: string;
 }
 
 export interface Category {

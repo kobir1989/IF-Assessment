@@ -1,3 +1,5 @@
+import { ProductsRequestBody } from '@/types';
+
 interface PlayerFormData {
   player1: string;
   player2: string;
@@ -39,4 +41,29 @@ export const validateForm = (
   setErrors(newErrors);
 
   return Object.values(newErrors).every((error) => error === '');
+};
+
+// Validate product form data
+export const handleValidateFormData = (
+  formData: ProductsRequestBody
+): Partial<ProductsRequestBody> => {
+  const errors: Partial<ProductsRequestBody> = {};
+
+  if (!formData.title) {
+    errors.title = 'Title is required';
+  }
+  if (!formData.price) {
+    errors.price = 0;
+  }
+  if (!formData.categoryId) {
+    errors.categoryId = 0;
+  }
+  if (!formData.description) {
+    errors.description = 'Description is required';
+  }
+  if (formData.images.length === 0 || formData.images.every((image) => !image)) {
+    errors.images = [];
+  }
+
+  return errors;
 };

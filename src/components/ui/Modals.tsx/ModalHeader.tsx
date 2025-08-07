@@ -9,7 +9,7 @@ interface ModalHeaderProps {
 
 const ModalHeader: React.FC<ModalHeaderProps> = ({ title, onClose }) => {
   return (
-    <div className='py-4 text-left flex justify-between items-center'>
+    <div className='py-4 text-left flex justify-between items-center px-4'>
       <h2 className='text-lg font-semibold text-gray-800'>{title}</h2>
       <Button variant='ghost' size='icon' onClick={onClose}>
         <X className='w-4 h-4' />

@@ -28,7 +28,7 @@ const Modal: React.FC<ModalProps> = ({
         <ModalHeader title={title} onClose={onClose} />
 
         {/* Body */}
-        <div className='px-6 py-4'>{children}</div>
+        <div className='p-4 py-6'>{children}</div>
 
         {/* Footer */}
         {isShowSubmit && (
