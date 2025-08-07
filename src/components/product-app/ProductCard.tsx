@@ -23,7 +23,6 @@ interface ProductCardProps {
   onDeleteProduct: (product: Product) => void;
 }
 
-// TODO: need to check the API response for product
 const ProductCard: React.FC<ProductCardProps> = ({
   product,
   onProductClick,
@@ -34,7 +33,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     <div className='bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 group border border-gray-200'>
       <div className='relative'>
         <NextImage
-          src={''}
+          src={product?.image || ''}
           alt={product.name}
           className='w-full h-48 object-cover rounded-t-lg cursor-pointer'
           onClick={() => onProductClick(product)}

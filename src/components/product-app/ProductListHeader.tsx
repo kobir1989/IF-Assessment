@@ -1,11 +1,12 @@
 'use client';
 
 import React from 'react';
-import { Button } from '@/components/ui/Button';
-import { Menu, Search } from 'lucide-react';
-import Input from '../ui/Input';
-import { Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { Plus, Menu, Search } from 'lucide-react';
+import { useAppDispatch, useProductAppStore } from '@/redux/hooks';
+import { setSearchKey } from '@/redux/features/productAppSlice';
+import { Button } from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
 
 interface ProductListHeaderProps {
   isSidebarOpen: boolean;
@@ -17,6 +18,13 @@ const ProductListHeader: React.FC<ProductListHeaderProps> = ({
   setIsSidebarOpen,
 }) => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { searchKey } = useProductAppStore();
+
+  const handleChange = (value: string): void => {
+    dispatch(setSearchKey(value));
+  };
+
   return (
     <>
       <div className='flex justify-between gap-4 mb-6'>
@@ -28,11 +36,18 @@ const ProductListHeader: React.FC<ProductListHeaderProps> = ({
           >
             <Menu className='w-4 h-4' />
           </Button>
-          <h1 className='text-2xl font-bold hidden lg:block'>Product List 20</h1>
+          <h1 className='text-2xl font-bold hidden lg:block'>Product List </h1>
         </div>
         <div className='flex items-center space-x-4'>
           <div className='relative w-[200px] lg:w-[300px]'>
-            <Input type='text' name='search' placeholder='Search' id='search' />
+            <Input
+              type='text'
+              value={searchKey}
+              name='search'
+              onChange={(e) => handleChange(e.target.value)}
+              placeholder='Search'
+              id='search'
+            />
             <span className='absolute right-4 top-1/2 transform -translate-y-1/2'>
               <Search className='w-4 h-4 text-gray-500' />
             </span>
@@ -49,7 +64,7 @@ const ProductListHeader: React.FC<ProductListHeaderProps> = ({
           </div>
         </div>
       </div>
-      <h1 className='text-md font-bold lg:hidden'>Product List (20)</h1>
+      <h1 className='text-md font-bold lg:hidden'>Product List</h1>
     </>
   );
 };

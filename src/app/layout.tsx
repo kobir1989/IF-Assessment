@@ -20,8 +20,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: 'iFarmar Assignment',
-  description: 'iFarmar Assignment',
+  title: '',
+  description: '',
 };
 
 export default function RootLayout({

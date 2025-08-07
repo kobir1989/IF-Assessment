@@ -38,3 +38,5 @@ export const WINNING_LINES = [
 export const PLAYER_X = 'X';
 export const PLAYER_O = 'O';
 export const TIE = 'tie';
+
+export const ITEMS_PER_PAGE = 5;

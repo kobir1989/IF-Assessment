@@ -1,11 +1,33 @@
 'use client';
 
 import React from 'react';
-import { Filter, X } from 'lucide-react';
+import { Filter, X, FunnelX } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { useGetProductCategoryQuery } from '@/redux/api/productApp';
+import { useAppDispatch, useProductAppStore } from '@/redux/hooks';
+import { toggleCategoryFilter, clearFilters } from '@/redux/features/productAppSlice';
+import { Category } from '@/types';
 
-// TODO: need to add category and price filter list
-const SidebarFilter = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+interface SidebarFilterProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const SidebarFilter: React.FC<SidebarFilterProps> = ({ isOpen, onClose }) => {
+  const dispatch = useAppDispatch();
+  const { filters } = useProductAppStore();
+  const { data: categoryList } = useGetProductCategoryQuery({});
+
+  const handleCategoryChange = (categoryId: number): void => {
+    dispatch(toggleCategoryFilter(categoryId));
+  };
+
+  const handleClearFilters = (): void => {
+    dispatch(clearFilters());
+  };
+
+  const hasActiveFilters = () => filters.category.length > 0;
+
   return (
     <>
       {/* Mobile Overlay */}
@@ -19,7 +41,7 @@ const SidebarFilter = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
       {/* Sidebar */}
       <div
         className={`
-        p-6 bg-white lg:rounded-lg shadow-md flex flex-col text-left
+        p-6 bg-white lg:rounded-lg shadow-md flex flex-col text-left overflow-y-scroll
         lg:relative lg:translate-x-0 lg:shadow-md lg:w-full lg:h-screen
         fixed top-16 lg:top-0 left-0 bottom-0 z-40 w-80 transition-transform duration-300 ease-in-out lg:transition-none
         ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0
@@ -39,37 +61,34 @@ const SidebarFilter = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
           </Button>
         </div>
 
-        <div className='space-y-6'>
-          {/* Brand */}
+        <div className='space-y-6 flex-1'>
+          {/* Category Filter */}
           <div>
-            <h4 className='font-semibold mb-3'>Brand</h4>
+            <h4 className='font-semibold mb-3'>Category</h4>
             <div className='space-y-2'>
-              <label className='flex items-center space-x-2 cursor-pointer'>
-                <input
-                  type='checkbox'
-                  checked={true}
-                  className='w-5 h-5 rounded border-gray-300 accent-black cursor-pointer'
-                />
-                <span className='text-sm text-gray-700'>Brand</span>
-              </label>
+              {categoryList?.map((category: Category) => (
+                <label key={category.id} className='flex items-center space-x-2 cursor-pointer'>
+                  <input
+                    name={category?.name}
+                    id={category?.name}
+                    type='checkbox'
+                    checked={filters.category.includes(category.id)}
+                    onChange={() => handleCategoryChange(category.id)}
+                    className='w-5 h-5 rounded border-gray-300 accent-black cursor-pointer'
+                  />
+                  <span className='text-sm text-gray-700'>{category.name}</span>
+                </label>
+              ))}
             </div>
           </div>
 
-          {/* Price */}
-          <div>
-            <h4 className='font-semibold mb-3'>Price</h4>
-            <div className='space-y-2'>
-              <label className='flex items-center space-x-2 cursor-pointer'>
-                <input
-                  type='radio'
-                  name='priceRange'
-                  checked={true}
-                  className='w-5 h-5 accent-black cursor-pointer'
-                />
-                <span className='text-sm text-gray-700'>TK.1000</span>
-              </label>
+          {hasActiveFilters() && (
+            <div>
+              <Button variant='outline' onClick={() => handleClearFilters()}>
+                <FunnelX /> Clear Filter
+              </Button>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>

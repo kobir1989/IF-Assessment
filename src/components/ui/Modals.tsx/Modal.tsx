@@ -1,6 +1,8 @@
 import React from 'react';
-import { Button } from './Button';
-import { X } from 'lucide-react';
+
+import ModalHeader from '@/components/ui/Modals.tsx/ModalHeader';
+import { Button } from '@/components/ui/Button';
+import ModalWrapper from '@/components/ui/Modals.tsx/ModalWrapper';
 
 interface ModalProps {
   children: React.ReactNode;
@@ -20,17 +22,10 @@ const Modal: React.FC<ModalProps> = ({
   submitButtonText,
 }) => {
   return (
-    <div className='fixed inset-0 z-50 flex items-center justify-center'>
-      <div className='absolute inset-0 bg-[#00000080] bg-opacity-50' onClick={onClose} />
-
+    <ModalWrapper>
       <div className='relative bg-white rounded-lg shadow-lg max-w-md w-full mx-4 max-h-[90vh] overflow-auto'>
         {/* header */}
-        <div className='px-6 py-4 text-left flex justify-between items-center'>
-          <h2 className='text-lg font-semibold text-gray-800'>{title}</h2>
-          <Button variant='ghost' size='icon' onClick={onClose}>
-            <X className='w-4 h-4' />
-          </Button>
-        </div>
+        <ModalHeader title={title} onClose={onClose} />
 
         {/* Body */}
         <div className='px-6 py-4'>{children}</div>
@@ -42,7 +37,7 @@ const Modal: React.FC<ModalProps> = ({
           </div>
         )}
       </div>
-    </div>
+    </ModalWrapper>
   );
 };
 

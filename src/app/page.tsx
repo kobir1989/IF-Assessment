@@ -1,5 +1,15 @@
-import { redirect } from 'next/navigation';
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Loader from '@/components/ui/Loader';
 
 export default function Home() {
-  redirect('/assignment-1');
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace('/assignment-1');
+  }, [router]);
+
+  return <Loader />;
 }
