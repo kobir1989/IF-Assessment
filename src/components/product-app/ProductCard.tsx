@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Edit, Star, Trash } from 'lucide-react';
 import { Button } from '../ui/Button';
 import NextImage from 'next/image';
@@ -29,16 +29,23 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onEditProduct,
   onDeleteProduct,
 }) => {
+  const [imageError, setImageError] = useState(false);
+
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
   return (
     <div className='bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 group border border-gray-200'>
       <div className='relative'>
         <NextImage
-          src={product?.image || ''}
+          src={imageError || !product?.image ? '/default-dress.png' : product.image}
           alt={product.name}
           className='w-full h-48 object-cover rounded-t-lg cursor-pointer'
           onClick={() => onProductClick(product)}
           width={300}
           height={200}
+          onError={handleImageError}
         />
         {product.discount && (
           <div className='absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-full text-sm font-semibold'>

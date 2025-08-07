@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductList from '@/components/product-app/ProductList';
 import ProductListHeader from '@/components/product-app/ProductListHeader';
 import SidebarFilter from '@/components/product-app/SidebarFilter';
@@ -14,20 +14,35 @@ const ProductListPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { filters, searchKey } = useProductAppStore();
 
-  // Calculate pagination offset
-  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters, searchKey]);
+
+  const prepareApiParams = () => {
+    const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+    const apiParams: any = {
+      offset,
+      limit: ITEMS_PER_PAGE,
+    };
+
+    if (filters.category.length > 0) {
+      apiParams.categoryId = filters.category[0];
+    }
+
+    if (searchKey) {
+      apiParams.title = searchKey;
+    }
+
+    return apiParams;
+  };
 
   const {
     data: productList,
     isLoading,
     error,
   } = useGetProductsQuery({
-    params: {
-      offset,
-      limit: ITEMS_PER_PAGE,
-      ...filters,
-      title: searchKey,
-    },
+    params: prepareApiParams(),
   });
 
   const totalPages =
