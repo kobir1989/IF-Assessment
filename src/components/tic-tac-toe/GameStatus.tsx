@@ -1,6 +1,5 @@
 import { TIE } from '@/constants';
 import { getPlayerColorClass } from '@/utils';
-import { Player } from '@/types';
 import React from 'react';
 
 interface GameStatusProps {

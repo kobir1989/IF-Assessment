@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { ArrowLeft } from 'lucide-react';
 import ProductAddAndEditForm from '@/components/product-app/ProductAddAndEditForm';
+import Loader from '@/components/ui/Loader';
 
 const ManageProductPage = () => {
   const router = useRouter();
@@ -20,7 +21,15 @@ const ManageProductPage = () => {
           </Button>
         </div>
         <div className='bg-white rounded-lg shadow-lg p-8'>
-          <ProductAddAndEditForm />
+          <Suspense
+            fallback={
+              <div className='flex flex-col justify-center items-center py-12 space-y-4'>
+                <Loader />
+              </div>
+            }
+          >
+            <ProductAddAndEditForm />
+          </Suspense>
         </div>
       </div>
     </div>
