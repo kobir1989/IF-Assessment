@@ -1,21 +1,27 @@
 import rootReducers from '@/redux/rootReducers';
 import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 import { apiSlice } from './api/apiSlice';
 
-// Persist config
-const persistConfig = {
-  key: 'root',
-  storage,
-  whitelist: ['ticTacToe'],
-  blacklist: ['api'],
-};
-
-// persisted reducer
-const persistedReducer = persistReducer(persistConfig, rootReducers);
+const createNoopStorage = () => ({
+  getItem: () => Promise.resolve(null),
+  setItem: (_key: string, value: string) => Promise.resolve(value),
+  removeItem: () => Promise.resolve(),
+});
 
 export const makeStore = () => {
+  const storage = typeof window !== 'undefined' ? createWebStorage('local') : createNoopStorage();
+
+  const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist: ['ticTacToe'],
+    blacklist: ['api'],
+  };
+
+  const persistedReducer = persistReducer(persistConfig, rootReducers);
+
   const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
