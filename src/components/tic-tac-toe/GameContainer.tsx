@@ -131,14 +131,16 @@ const GameContainer = () => {
     return null;
   };
 
+  const hasWindow = () => typeof window !== 'undefined';
+
   return (
     <div className='w-full'>
       {/* Confetti Effect */}
       {showConfetti && (
-        <div className='fixed inset-0 z-100'>
+        <div className='fixed inset-0 z-50'>
           <Confetti
-            width={window.innerWidth}
-            height={window.innerHeight}
+            width={hasWindow() ? window.innerWidth : 0}
+            height={hasWindow() ? window.innerHeight : 0}
             numberOfPieces={confettiPieces}
             recycle={false}
             gravity={0.1}

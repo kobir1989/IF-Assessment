@@ -45,6 +45,8 @@ const ProductListPage = () => {
     params: prepareApiParams(),
   });
 
+  // Mock pagination api does not has total pages or total items.
+  // if current page returns ITEMS_PER_PAGE, allow next page; else it's the last page
   const totalPages =
     productList && productList.length < ITEMS_PER_PAGE ? currentPage : currentPage + 1;
 

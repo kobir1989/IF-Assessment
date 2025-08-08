@@ -3,7 +3,7 @@ import { Modal } from '@/components/ui/Modals.tsx';
 import { Play, Trophy } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { ROUTES } from '@/constants';
+import { ROUTES, TIE } from '@/constants';
 
 interface SeriesWinnerModalProps {
   gameSeriesWinner: string | null;
@@ -31,7 +31,7 @@ const SeriesWinnerModal: React.FC<SeriesWinnerModalProps> = ({
         <div className='text-center'>
           <Trophy className='w-12 h-12 text-yellow-600 mx-auto mb-4' />
           <h2 className='text-2xl font-bold mb-2'>
-            {gameSeriesWinner === null
+            {gameSeriesWinner === TIE
               ? 'Game Series Tied!'
               : `${gameSeriesWinner} Wins the Series!`}
           </h2>

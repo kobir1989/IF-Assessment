@@ -2,7 +2,7 @@ import React from 'react';
 
 const Loader = () => {
   return (
-    <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-100 w-[100px] h-[100px]'>
+    <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[100px] h-[100px]'>
       <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 150'>
         <path
           fill='none'

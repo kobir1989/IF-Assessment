@@ -11,7 +11,7 @@ export const productApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query<Product[], GetProductsRequest>({
       query: ({ params }) => ({
-        url: '/products',
+        url: 'products',
         params,
       }),
       keepUnusedDataFor: 0,
@@ -19,13 +19,13 @@ export const productApi = apiSlice.injectEndpoints({
     }),
     getProductById: builder.query<Product, ProductIdParams>({
       query: ({ params, productId }) => ({
-        url: `/products/${productId}`,
+        url: `products/${productId}`,
         params,
       }),
     }),
     createProduct: builder.mutation<Product, CreateProductRequest>({
       query: ({ body, params }) => ({
-        url: '/products',
+        url: 'products',
         method: 'POST',
         body,
         params,
@@ -34,7 +34,7 @@ export const productApi = apiSlice.injectEndpoints({
     }),
     updateProduct: builder.mutation<Product, UpdateProductRequest>({
       query: ({ body, productId }) => ({
-        url: `/products/${productId}`,
+        url: `products/${productId}`,
         method: 'PUT',
         body,
       }),
@@ -42,7 +42,7 @@ export const productApi = apiSlice.injectEndpoints({
     }),
     removeProduct: builder.mutation<{ message: string }, ProductIdParams>({
       query: ({ productId }) => ({
-        url: `/products/${productId}`,
+        url: `products/${productId}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Product'],
@@ -50,7 +50,7 @@ export const productApi = apiSlice.injectEndpoints({
 
     getProductCategory: builder.query({
       query: () => ({
-        url: '/categories',
+        url: 'categories',
       }),
     }),
   }),
