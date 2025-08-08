@@ -1,6 +1,6 @@
 import GameNavLinks from '@/components/ui/Navbar/GameNavLinks';
-import { NAV_LINKS } from '@/constants';
 import NavLink from '@/components/ui/Navbar/NavLink';
+import { NAV_LINKS, ROUTES } from '@/constants';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -31,7 +31,7 @@ const MobileNavbar: React.FC<MobileNavProps> = ({
             />
 
             {/* Game Navigation Links under Assignment 1 */}
-            {link.href === '/assignment-1' && (
+            {link.href === ROUTES.assignment_1.root && (
               <GameNavLinks pathname={pathname} onLinkClick={onLinkClick} />
             )}
           </div>

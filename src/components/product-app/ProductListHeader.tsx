@@ -7,6 +7,7 @@ import { useAppDispatch, useProductAppStore } from '@/redux/hooks';
 import { setSearchKey } from '@/redux/features/productAppSlice';
 import { Button } from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
+import { ROUTES } from '@/constants';
 
 interface ProductListHeaderProps {
   isSidebarOpen: boolean;
@@ -55,7 +56,7 @@ const ProductListHeader: React.FC<ProductListHeaderProps> = ({
 
           <div className='flex items-center space-x-4'>
             <Button
-              onClick={() => router.push('/assignment-2/manage-product')}
+              onClick={() => router.push(ROUTES.assignment_2.productApp.manageProduct)}
               className='hidden lg:flex'
             >
               <Plus className='w-4 h-4' />

@@ -3,6 +3,7 @@ import { Modal } from '@/components/ui/Modals.tsx';
 import { Play, Trophy } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { ROUTES } from '@/constants';
 
 interface SeriesWinnerModalProps {
   gameSeriesWinner: string | null;
@@ -18,10 +19,12 @@ const SeriesWinnerModal: React.FC<SeriesWinnerModalProps> = ({
   onClose,
 }) => {
   const router = useRouter();
+
   const handleViewLeaderboard = () => {
     onClose();
-    router.push('/assignment-1/leaderboard');
+    router.push(ROUTES.assignment_1.game.leaderBoard);
   };
+
   return (
     <Modal title='Game Result' isShowSubmit={false} onClose={onClose}>
       <div className='border border-yellow-200 rounded-md bg-yellow-50 p-6 mb-6'>

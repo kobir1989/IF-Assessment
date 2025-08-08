@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
+import { ROUTES } from '@/constants';
 
 export default function Home() {
-  redirect('/assignment-1');
+  redirect(ROUTES.assignment_1.root);
 }

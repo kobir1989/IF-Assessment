@@ -11,6 +11,7 @@ import { Plus } from 'lucide-react';
 import ConfirmationModal from '@/components/ui/Modals.tsx/ConfirmationModal';
 import { useRemoveProductMutation } from '@/redux/api/productApp';
 import Popover from '@/components/ui/Popover';
+import { ROUTES } from '@/constants';
 
 interface ProductListProps {
   productList?: Product[];
@@ -31,11 +32,11 @@ const ProductList: React.FC<ProductListProps> = ({
   const [deleteErrorMessage, setDeleteErrorMessage] = useState<string>('');
 
   const handleProductClick = (productId: string | number) => {
-    router.push(`/assignment-2/product-details/${productId}`);
+    router.push(`${ROUTES.assignment_2.productApp.productDetails}${productId}`);
   };
 
   const handleEditProduct = (productId: string | number) => {
-    router.push(`/assignment-2/manage-product?id=${productId}`);
+    router.push(`${ROUTES.assignment_2.productApp.manageProduct}?id=${productId}`);
   };
 
   const handleConfirmModal = async (productId: string | number) => {
@@ -70,7 +71,7 @@ const ProductList: React.FC<ProductListProps> = ({
   };
 
   const handleAddProduct = () => {
-    router.push('/assignment-2/manage-product');
+    router.push(ROUTES.assignment_2.productApp.manageProduct);
   };
 
   if (productLoading) {

@@ -1,5 +1,5 @@
 import { TIE } from '@/constants';
-import { getCurrentPlayerName, getPlayerColorClass } from '@/utils';
+import { getPlayerColorClass } from '@/utils';
 import { Player } from '@/types';
 import React from 'react';
 
@@ -8,7 +8,6 @@ interface GameStatusProps {
   winner: string | null;
   currentRound: number;
   currentPlayer: string;
-  players: Player;
   getRoundWinnerName: () => string | null;
 }
 
@@ -17,7 +16,6 @@ const GameStatus: React.FC<GameStatusProps> = ({
   winner,
   currentRound,
   currentPlayer,
-  players,
   getRoundWinnerName,
 }) => {
   const renderGameStatus = () => {
@@ -38,15 +36,6 @@ const GameStatus: React.FC<GameStatusProps> = ({
         </div>
       );
     }
-
-    return (
-      <div className='text-lg text-gray-700'>
-        Round {currentRound} - Current turn:{' '}
-        <span className={`font-bold ${getPlayerColorClass(currentPlayer, currentPlayer)}`}>
-          {getCurrentPlayerName(currentPlayer, players)} ({currentPlayer})
-        </span>
-      </div>
-    );
   };
 
   return <div className='text-center'>{renderGameStatus()}</div>;

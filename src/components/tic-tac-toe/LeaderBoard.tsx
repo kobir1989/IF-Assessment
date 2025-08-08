@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { Trophy, UserRound } from 'lucide-react';
 import { getRandomColor, isRank1 } from '@/utils';
 import { useAppDispatch, useGameStore } from '@/redux/hooks';
@@ -8,7 +9,7 @@ import PlayerCard from './PlayerCard';
 import EmptyLeaderBoard from './EmptyLeaderboard';
 import { Button } from '@/components/ui/Button';
 import { resetLeaderboard } from '@/redux/features/ticTacToeSlice';
-import { useRouter } from 'next/navigation';
+import { ROUTES } from '@/constants';
 
 const LeaderBoard = () => {
   const { leaderboard } = useGameStore();
@@ -20,7 +21,7 @@ const LeaderBoard = () => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('persist:root');
     }
-    router.push('/assignment-1');
+    router.push(ROUTES.assignment_1.game.playerSetup);
   };
 
   return (

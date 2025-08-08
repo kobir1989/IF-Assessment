@@ -1,13 +1,14 @@
 'use client';
 
-import Input from '@/components/ui/Input';
 import React, { useEffect, useRef, useState } from 'react';
+import Input from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { Play } from 'lucide-react';
 import { useAppDispatch } from '@/redux/hooks';
 import { setPlayers } from '@/redux/features/ticTacToeSlice';
 import { validatePlayerForm } from '@/utils';
 import { useRouter } from 'next/navigation';
+import { ROUTES } from '@/constants';
 
 const INITIAL_STATE = {
   player1: '',
@@ -34,7 +35,7 @@ const PlayerSetupForm = () => {
   const hadleSuccess = () => {
     setFormData(INITIAL_STATE);
     setErrors(INITIAL_STATE);
-    router.push('/assignment-1/game');
+    router.push(ROUTES.assignment_1.game.game);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

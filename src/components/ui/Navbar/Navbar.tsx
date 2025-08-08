@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
 import { DesktopNav, HamburgerButton, MobileNavbar } from '.';
+import { ROUTES } from '@/constants';
 
 const Navbar: React.FC = () => {
   const pathname = usePathname();
@@ -17,10 +18,10 @@ const Navbar: React.FC = () => {
   };
 
   const isLinkActive = (href: string) => {
-    if (href === '/assignment-1') {
-      return pathname.startsWith('/assignment-1');
-    } else if (href === '/assignment-2') {
-      return pathname.startsWith('/assignment-2');
+    if (href === ROUTES.assignment_1.root) {
+      return pathname.startsWith(ROUTES.assignment_1.root);
+    } else if (href === ROUTES.assignment_2.root) {
+      return pathname.startsWith(ROUTES.assignment_2.root);
     }
     return pathname === href;
   };

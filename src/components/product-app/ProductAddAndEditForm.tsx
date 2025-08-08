@@ -15,6 +15,7 @@ import Loader from '@/components/ui/Loader';
 import { Plus, Trash } from 'lucide-react';
 import Popover from '@/components/ui/Popover';
 import { getProductApiErrorMessage, validateProductFormData } from '@/utils/validators';
+import { ROUTES } from '@/constants';
 
 const INITIAL_FORM_DATA = {
   title: '',
@@ -121,7 +122,7 @@ const ProductAddAndEditForm = () => {
     setFormData(INITIAL_FORM_DATA);
     setPopoverMessage(message);
     setShowSuccessPopover(true);
-    router.push('/assignment-2');
+    router.push(ROUTES.assignment_2.productApp.productList);
   };
   const handleSubmitError = (error: unknown) => {
     const errorMessage = getProductApiErrorMessage(error);

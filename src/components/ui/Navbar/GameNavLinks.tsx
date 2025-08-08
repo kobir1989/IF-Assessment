@@ -1,4 +1,4 @@
-import { GAME_NAV_LINKS } from '@/constants';
+import { GAME_NAV_LINKS, ROUTES } from '@/constants';
 import { isPlayerExists } from '@/utils';
 import { useGameStore } from '@/redux/hooks';
 import Link from 'next/link';
@@ -25,7 +25,7 @@ const GameNavLinks: React.FC<GameNavLinksProps> = ({ pathname, onLinkClick }) =>
             <Link
               href={gameLink.href}
               className={`${
-                gameLink.href === '/assignment-1/game' && !isPlayerExists(players)
+                gameLink.href === ROUTES.assignment_1.game.game && !isPlayerExists(players)
                   ? 'cursor-not-allowed'
                   : ''
               }`}

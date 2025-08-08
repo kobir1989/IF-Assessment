@@ -1,6 +1,9 @@
 'use client';
 
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAppDispatch, useGameStore } from '@/redux/hooks';
+import Confetti from 'react-confetti';
 import {
   setBoard,
   setCurrentPlayer,
@@ -15,12 +18,9 @@ import GameControlButtons from '@/components/tic-tac-toe/GameControlButtons';
 import SeriesWinnerModal from '@/components/tic-tac-toe/SeriesWinnerModal';
 import GameStatus from '@/components/tic-tac-toe/GameStatus';
 import Game3x3Grid from '@/components/tic-tac-toe/Game3x3Grid';
-import { PLAYER_X, PLAYER_O, WINNING_LINES, TIE } from '@/constants';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { PLAYER_X, PLAYER_O, WINNING_LINES, TIE, ROUTES } from '@/constants';
 import { isPlayerExists } from '@/utils';
 import { useConfetti } from '@/hooks';
-import Confetti from 'react-confetti';
 
 const GameContainer = () => {
   const {
@@ -48,7 +48,7 @@ const GameContainer = () => {
 
   useEffect(() => {
     if (!isPlayerExists(players)) {
-      router.push('/assignment-1');
+      router.push(ROUTES.assignment_1.game.playerSetup);
     }
   }, [players, router]);
 
@@ -152,6 +152,7 @@ const GameContainer = () => {
         scores={scores}
         maxRounds={maxRounds}
         currentRound={currentRound}
+        currentPlayer={currentPlayer}
       />
 
       <div className='border border-gray-200 rounded-md bg-white p-4'>
@@ -161,7 +162,6 @@ const GameContainer = () => {
             winner={winner}
             currentRound={currentRound}
             currentPlayer={currentPlayer}
-            players={players}
             getRoundWinnerName={getRoundWinnerName}
           />
           <Game3x3Grid

@@ -1,26 +1,45 @@
+export const ROUTES = {
+  assignment_1: {
+    root: '/assignment-1',
+    game: {
+      playerSetup: '/assignment-1',
+      game: '/assignment-1/game',
+      leaderBoard: '/assignment-1/leaderboard',
+    },
+  },
+  assignment_2: {
+    root: '/assignment-2',
+    productApp: {
+      productList: '/assignment-2',
+      manageProduct: '/assignment-2/manage-product',
+      productDetails: '/assignment-2/product-details/',
+    },
+  },
+};
+
 export const NAV_LINKS = [
   {
     label: 'Assignment 1',
-    href: '/assignment-1',
+    href: ROUTES.assignment_1.root,
   },
   {
     label: 'Assignment 2',
-    href: '/assignment-2',
+    href: ROUTES.assignment_2.root,
   },
 ];
 
 export const GAME_NAV_LINKS = [
   {
     label: 'Player Setup',
-    href: '/assignment-1',
+    href: ROUTES.assignment_1.game.playerSetup,
   },
   {
     label: 'Game',
-    href: '/assignment-1/game',
+    href: ROUTES.assignment_1.game.game,
   },
   {
     label: 'Leaderboard',
-    href: '/assignment-1/leaderboard',
+    href: ROUTES.assignment_1.game.leaderBoard,
   },
 ];
 
