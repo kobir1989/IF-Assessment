@@ -20,8 +20,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: '',
-  description: '',
+  title: 'iFarmar Assignemt',
+  description: 'Tic-tac-toe game and Product App',
 };
 
 export default function RootLayout({
